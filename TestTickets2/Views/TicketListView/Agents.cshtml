@@ -1,0 +1,39 @@
+﻿<!---the model that the view is receiving data from-->
+@model IEnumerable<TestTickets2.Models.AgentModel>
+
+@{
+    ViewData["Title"] = "Agents";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID <!---DisplayNAMEFor displays the column name-->
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Role
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        { //loop around the items in Model, which is a list sent from the model (see top of this file)
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)    <!---DisplayFOR displays the column contents-->
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
