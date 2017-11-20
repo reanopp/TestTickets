@@ -38,6 +38,12 @@
         </div>
     </nav>
     <div class="container body-content">
+        <br />
+        <p>
+            <a asp-area="" asp-controller="TicketListView" asp-action="Index">Tickets</a>
+            | <a asp-area="" asp-controller="TicketListView" asp-action="Agents">Agents</a>
+            | <a asp-area="" asp-controller="TicketListView" asp-action="TicketsAgents">Tickets with owners</a>
+        </p>
         @RenderBody()
         <hr />
         <footer>

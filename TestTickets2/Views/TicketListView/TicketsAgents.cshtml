@@ -1,0 +1,46 @@
+﻿<!---the model that the view is receiving data from-->
+<!---in this case it is receiving data from a new viewmodel that is used because we are using more than one db table-->
+@model IEnumerable<TestTickets2.Models.ViewModelTicketsAgents>
+
+@{
+    ViewData["Title"] = "Tickets";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID <!---DisplayNAMEFor displays the column name-->
+            </th>
+            <th>
+                Subject
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Owner
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        { //loop around the items in Model, which is a list sent from the model (see top of this file)
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketModel.ID)    <!---DisplayFOR displays the column contents-->
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketModel.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketModel.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgentModel.Name)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

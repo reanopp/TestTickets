@@ -1,5 +1,3 @@
-using System;
-
 namespace TestTickets2.Models
 {
     public class ErrorViewModel

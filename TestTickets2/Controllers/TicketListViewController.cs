@@ -1,11 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using TestTickets2.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,24 +18,26 @@ namespace TestTickets2.Models
         // GET: /<controller>/
         public IActionResult Index()
         {
-
-            //return View();
-
             var tickets = from t in _context.TicketList
                          select t;
             return View(tickets.ToList());
-
         }
 
         public IActionResult Agents()
         {
-
-            //return View();
-
             var agents = from a in _context.AgentList
                           select a;
             return View(agents.ToList());
+        }
 
+        public IActionResult TicketsAgents()
+        {
+            //we are using 2 tables(models) with a join, and throwing it into a new view model which contains definitions for the original models inside it
+            var tickets = from t in _context.TicketList
+                          join a in _context.AgentList on t.Owner equals a.ID.ToString()
+                          select new ViewModelTicketsAgents{ TicketModel = t, AgentModel = a };
+
+            return View(tickets.ToList());
         }
     }
 }
