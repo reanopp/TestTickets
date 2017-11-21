@@ -1,4 +1,4 @@
-﻿<!---the model that the view is receiving data from-->
+﻿<!---the model type that the view is receiving data from the controller-->
 <!---in this case it is receiving data from a new viewmodel that is used because we are using more than one db table-->
 @model IEnumerable<TestTickets2.Models.ViewModelTicketsAgents>
 
@@ -24,12 +24,15 @@
             <th>
                 Escalated
             </th>
+            <th>
+                Is agent awesome?
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
-        { //loop around the items in Model, which is a list sent from the model (see top of this file)
+        { //loop around the items in Model, which is a list sent from the controller (see top of this file)
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.TicketModel.ID)    <!---DisplayFOR displays the column contents-->
@@ -45,6 +48,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Escalated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgentAwesome)
                 </td>
             </tr>
         }

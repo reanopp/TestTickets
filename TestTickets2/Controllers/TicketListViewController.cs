@@ -37,7 +37,19 @@ namespace TestTickets2.Models
                           join a in _context.AgentList on t.Owner equals a.ID.ToString()
                           select new ViewModelTicketsAgents{ TicketModel = t, AgentModel = a };
 
-            return View(tickets.ToList());
+            //here we execute some application-level logic on the data before it goes to the view. we then update the MODEL instance with new data that the view will pull.
+            //we can't update fields in an IEnumerable, so we have to take it to a List() first before editing any properties.
+            var tickets2 = tickets.ToList();
+            foreach (var ticket in tickets2)
+            {
+                if (ticket.AgentModel.Name == "John")
+                {
+                    ticket.AgentAwesome = "Hellyeah";
+                }
+                else { ticket.AgentAwesome = "Nahhh"; }
+            }
+
+            return View(tickets2);
         }
     }
 }

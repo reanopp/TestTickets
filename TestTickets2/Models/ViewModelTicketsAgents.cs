@@ -20,5 +20,9 @@
                 else { return "No"; }
             }
         }
+
+        //this is a string that can be updated by the controller and read by the view
+        public string AgentAwesome { get; set; }
+
     }
 }
