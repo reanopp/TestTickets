@@ -21,6 +21,9 @@
             <th>
                 Owner
             </th>
+            <th>
+                Escalated
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -39,6 +42,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.AgentModel.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Escalated)
                 </td>
             </tr>
         }
