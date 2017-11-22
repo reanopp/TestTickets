@@ -23,7 +23,8 @@ namespace TestTickets2.Models
                          select t;
             return View(tickets.ToList());
         }
-        [Authorize(Roles = "superadmins")]
+
+        [Authorize(Roles = "superadmins")] //limit the controller action below this tag to superadmins role only
         public IActionResult Agents()
         {
             var agents = from a in _context.AgentList

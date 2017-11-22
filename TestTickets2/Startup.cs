@@ -30,24 +30,20 @@ namespace TestTickets2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //add the main mvc service here, with an extra option to automatically apply the [Authorize] flag to the entire app:
             services.AddMvc(o =>
             {
                 o.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
             });
 
+            //linking the database context class here:
             services.AddDbContext<TestTicketContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("TestTicketContext")));
 
-            //services.AddDistributedMemoryCache(); //required for session variables
-            //services.AddSession(); //required for session variables
-            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            //services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
-            //.AddEntityFrameworkStores<IdentityContext, Guid>()
-            //.AddDefaultTokenProviders();
-
+            //adding the identity core service here:
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<TestTicketContext>().AddDefaultTokenProviders();
 
+            //configuring the identity core service options here:
             services.ConfigureApplicationCookie(options =>
             {
                 options.AccessDeniedPath = "/Account/AccessDenied";
@@ -74,8 +70,7 @@ namespace TestTickets2
             app.UseStaticFiles();
             app.UseAuthentication();
 
-            //must go before UseMvc
-            //app.UseSession(); //required for session variables
+            //the commented-out line below is to seed the user database with an admin user (see SampleData class)
             //seeder.SeedAdminUser();
 
             app.UseMvc(routes =>
