@@ -45,9 +45,9 @@ namespace TestTickets2
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.AccessDeniedPath = "/TicketListView/TicketsAgents";
-                options.LoginPath = "/TicketListView/TicketsAgents";
-                options.LogoutPath = "/TicketListView/TicketsAgents";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
             });
 
             services.AddTransient<SampleData>();

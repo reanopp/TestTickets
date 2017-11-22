@@ -22,8 +22,12 @@ namespace TestTickets2.Controllers
             _signInManager = signInManager;
         }
 
-        public IActionResult Login()
+        public IActionResult Login(string ReturnUrl = null)
         {
+            if(ReturnUrl != null && Url.IsLocalUrl(ReturnUrl))
+            {
+                this.ViewData["ReturnUrl"] = ReturnUrl;
+            }
             return View();
         }
 
@@ -35,7 +39,14 @@ namespace TestTickets2.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
                 if(result.Succeeded)
                 {
-                    return RedirectToAction("Index", "TicketListView");
+                    if(model.ReturnUrl != null && Url.IsLocalUrl(model.ReturnUrl))
+                    {
+                        return Redirect(model.ReturnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction(DefaultURL.Dashboard[1], DefaultURL.Dashboard[0]);
+                    }
                 }
                 else
                 {
@@ -49,6 +60,11 @@ namespace TestTickets2.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "TicketListView");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

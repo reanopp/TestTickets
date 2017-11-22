@@ -23,7 +23,7 @@ namespace TestTickets2.Models
                          select t;
             return View(tickets.ToList());
         }
-        [Authorize]
+        [Authorize(Roles = "superadmins")]
         public IActionResult Agents()
         {
             var agents = from a in _context.AgentList
