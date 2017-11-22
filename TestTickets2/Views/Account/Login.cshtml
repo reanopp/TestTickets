@@ -4,10 +4,9 @@
 }
 <h2>Login</h2>
 <hr />
-@if (ViewData["LoginError"] != null)
-{
+
     <div>@ViewData["LoginError"]</div><br>
-}
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Login">
@@ -15,12 +14,12 @@
             <div class="form-group">
                 <input asp-for="ReturnUrl" class="hidden"/>
                 <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
+                <input asp-for="UserName" class="form-control" value="" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control" value="" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
