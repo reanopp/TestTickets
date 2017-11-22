@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -43,6 +44,9 @@
             <a asp-area="" asp-controller="TicketListView" asp-action="Index">Tickets</a>
             | <a asp-area="" asp-controller="TicketListView" asp-action="Agents">Agents</a>
             | <a asp-area="" asp-controller="TicketListView" asp-action="TicketsAgents">Tickets with owners</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+            UserID: @HttpContextAccessor.HttpContext.Session.GetString("userID")
         </p>
         @RenderBody()
         <hr />
