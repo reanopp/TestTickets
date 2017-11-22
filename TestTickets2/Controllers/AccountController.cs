@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using TestTickets2.Data;
 using TestTickets2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,6 +23,7 @@ namespace TestTickets2.Controllers
             _signInManager = signInManager;
         }
 
+        [AllowAnonymous]
         public IActionResult Login(string ReturnUrl = null)
         {
             if(ReturnUrl != null && Url.IsLocalUrl(ReturnUrl))
@@ -31,7 +33,7 @@ namespace TestTickets2.Controllers
             return View();
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
         public async Task<IActionResult> Login(LoginModel model) //form pushed data directly into instance of model, can now pull it from there again
         {
             if (ModelState.IsValid)
