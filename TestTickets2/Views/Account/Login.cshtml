@@ -4,6 +4,10 @@
 }
 <h2>Login</h2>
 <hr />
+@if (ViewData["LoginError"] != null)
+{
+    <div>@ViewData["LoginError"]</div><br>
+}
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Login">

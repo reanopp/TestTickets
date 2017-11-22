@@ -38,21 +38,30 @@ namespace TestTickets2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
-                if(result.Succeeded)
+                if (model.UserName != null && model.Password != null)
                 {
-                    if(model.ReturnUrl != null && Url.IsLocalUrl(model.ReturnUrl))
+                    var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
+                    if (result.Succeeded)
                     {
-                        return Redirect(model.ReturnUrl);
+                        if (model.ReturnUrl != null && Url.IsLocalUrl(model.ReturnUrl))
+                        {
+                            return Redirect(model.ReturnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction(DefaultURL.Dashboard[1], DefaultURL.Dashboard[0]);
+                        }
                     }
                     else
                     {
-                        return RedirectToAction(DefaultURL.Dashboard[1], DefaultURL.Dashboard[0]);
+                        this.ViewData["LoginError"] = "Invalid credentials, please try again:";
+                        return View();
                     }
                 }
                 else
                 {
-                    throw new Exception("Invalid login attempt");
+                    this.ViewData["LoginError"] = "Please complete all fields, and try again:";
+                    return View();
                 }
             }
             return View(model);
