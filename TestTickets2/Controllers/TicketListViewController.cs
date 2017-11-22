@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +23,7 @@ namespace TestTickets2.Models
                          select t;
             return View(tickets.ToList());
         }
-
+        [Authorize]
         public IActionResult Agents()
         {
             var agents = from a in _context.AgentList

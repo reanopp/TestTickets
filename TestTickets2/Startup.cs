@@ -29,25 +29,32 @@ namespace TestTickets2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-                //.AddSessionStateTempDataProvider(); //required for session variables
 
             services.AddDbContext<TestTicketContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("TestTicketContext")));
 
-            services.AddDistributedMemoryCache(); //required for session variables
-            services.AddSession(); //required for session variables
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.AddDistributedMemoryCache(); //required for session variables
+            //services.AddSession(); //required for session variables
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
-                //.AddEntityFrameworkStores<IdentityContext, Guid>()
-                //.AddDefaultTokenProviders();
+            //.AddEntityFrameworkStores<IdentityContext, Guid>()
+            //.AddDefaultTokenProviders();
 
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<TestTicketContext>().AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/TicketListView/TicketsAgents";
+                options.LoginPath = "/TicketListView/TicketsAgents";
+                options.LogoutPath = "/TicketListView/TicketsAgents";
+            });
+
+            services.AddTransient<SampleData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,SampleData seeder)
         {
             if (env.IsDevelopment())
             {
@@ -63,7 +70,8 @@ namespace TestTickets2
             app.UseAuthentication();
 
             //must go before UseMvc
-            app.UseSession(); //required for session variables
+            //app.UseSession(); //required for session variables
+            //seeder.SeedAdminUser();
 
             app.UseMvc(routes =>
             {

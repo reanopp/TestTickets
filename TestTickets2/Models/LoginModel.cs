@@ -12,10 +12,10 @@ namespace TestTickets2.Models
     {
         public string UserName { get; set; }
         public string Password { get; set; }
-
+        /*
         public string VerifyUser(TestTicketContext _context)
         {
-            var userID = (from u in _context.Users
+            var userID = (from u in _context.Users2
                           where u.Username.Equals(UserName) &&
                              u.Password.Equals(Password)
                           select u).FirstOrDefault();
@@ -31,5 +31,6 @@ namespace TestTickets2.Models
             }
 
         }
+        */
     }
 }

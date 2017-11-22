@@ -1,4 +1,6 @@
-﻿@using Microsoft.AspNetCore.Http
+﻿@using Microsoft.AspNetCore.Identity
+@using TestTickets2.Data
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,8 +47,19 @@
             | <a asp-area="" asp-controller="TicketListView" asp-action="Agents">Agents</a>
             | <a asp-area="" asp-controller="TicketListView" asp-action="TicketsAgents">Tickets with owners</a>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-            UserID: @HttpContextAccessor.HttpContext.Session.GetString("userID")
+            @inject SignInManager<ApplicationUser> SignInManager
+            @inject UserManager<ApplicationUser> UserManager
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <span>Logged in as:&nbsp;&nbsp;&nbsp;</span>@UserManager.GetUserName(User)
+            }
+            else
+            {
+                <span>not logged in</span>
+            }
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+            | <a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
         </p>
         @RenderBody()
         <hr />
