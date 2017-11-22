@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TestTickets2.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logged in as: @UserManager.GetUserName(User) </a></li>
+        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a asp-area="" asp-controller="Account" asp-action="Login">Register</a></li>
+        <li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
+    </ul>
+}

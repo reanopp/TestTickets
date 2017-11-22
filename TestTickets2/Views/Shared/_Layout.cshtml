@@ -33,34 +33,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="TicketListView" asp-action="Index">Tickets</a></li>
+                    <li><a asp-area="" asp-controller="TicketListView" asp-action="Agents">Agents</a></li>
+                    <li><a asp-area="" asp-controller="TicketListView" asp-action="TicketsAgents">TicketOwners</a></li>
                 </ul>
+                @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>
     <div class="container body-content">
         <br />
-        <p>
-            <a asp-area="" asp-controller="TicketListView" asp-action="Index">Tickets</a>
-            | <a asp-area="" asp-controller="TicketListView" asp-action="Agents">Agents</a>
-            | <a asp-area="" asp-controller="TicketListView" asp-action="TicketsAgents">Tickets with owners</a>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            @inject SignInManager<ApplicationUser> SignInManager
-            @inject UserManager<ApplicationUser> UserManager
-            @if (SignInManager.IsSignedIn(User))
-            {
-                <span>Logged in as:&nbsp;&nbsp;&nbsp;</span>@UserManager.GetUserName(User)
-            }
-            else
-            {
-                <span>not logged in</span>
-            }
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-            | <a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-        </p>
         @RenderBody()
         <hr />
         <footer>
