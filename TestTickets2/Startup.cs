@@ -30,7 +30,7 @@ namespace TestTickets2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //add the main mvc service here, with an extra option to automatically apply the [Authorize] flag to the entire app:
+            //add the main mvc service here, with an extra option to automatically apply the effects of the [Authorize] flag to the entire app:
             services.AddMvc(o =>
             {
                 o.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));

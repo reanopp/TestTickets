@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using TestTickets2.Data;
 using TestTickets2.Models;
 using Microsoft.AspNetCore.Authorization;
+using TestTickets2.Services;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -45,7 +46,7 @@ namespace TestTickets2.Controllers
                     {
                         if (model.ReturnUrl != null && Url.IsLocalUrl(model.ReturnUrl))
                         {
-                            return Redirect(model.ReturnUrl); //returnurl is valid, return to the page you came from
+                            return Redirect(model.ReturnUrl); //returnurl is valid, return to the page you came from 
                         }
                         else
                         {
